@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<description>Spring MVC Configuration</description>
+	
+	<!-- 引用各模块的spring配置文件 -->  
+	<!-- <import resource="classpath:/cn/edu/xmut/core/template/freemarker-layout-directives.xml" /> -->
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder
+		ignore-unresolvable="true" location="classpath*:/application.properties" />
+
+	<!-- 使用Annotation自动注册Bean,只扫描@Controller -->
+	<context:component-scan base-package="cn.edu.xmut"><!-- base-package 
+			如果多个，用“,”分隔 -->
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 默认的注解映射的支持，org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+		    <!-- 文件下载，使用这个（ResponseEntity<byte[]>），必须加入如下语句 -->
+		    <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+			<!-- 将StringHttpMessageCOnverter的默认编码设为UTF-8 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
+<!-- 			<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >   -->
+    
+<!-- 	            <property name="prefixJson" value="false"/>   -->
+<!-- 	            <property name="supportedMediaTypes">   -->
+<!-- 	                <list>   -->
+<!-- 	                    <value>application/json</value>   -->
+<!-- 	                    <value>text/json</value>   -->
+<!-- 	                </list>   -->
+<!-- 	            </property>   -->
+<!-- 	        </bean>     -->
+
+		      <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+		        <property name="supportedMediaTypes">
+		        	<list>
+		        		<value>text/html;charset=UTF-8</value>
+		        		<value>application/json</value>
+		        	</list>
+		        </property>
+	          	<property name="features">
+	          		<array>
+	            		<value>WriteMapNullValue</value>
+	            		<value>WriteNullStringAsEmpty</value>
+	         		</array>
+	       		 </property>
+		      </bean> 
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- 默认的注解映射的支持，org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping -->
+	<mvc:annotation-driven />
+<!-- 	<mvc:annotation-driven validator="validator"/> -->
+	<!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler />
+
+	<mvc:interceptors>
+		<bean class="cn.edu.xmut.core.filter.permission.PermissionInterceptor"></bean>
+	</mvc:interceptors>
+	
+	<mvc:interceptors>
+		<bean class="cn.edu.xmut.core.filter.auth.LoginInterceptor"></bean>
+	</mvc:interceptors>
+	<!-- <mvc:interceptors>
+		<bean class="cn.edu.xmut.core.rest.RestInterceptor"></bean>
+	</mvc:interceptors> -->
+
+	<!-- 视图文件解析配置 -->
+	<!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+		<property name="prefix" value="${web.view.prefix}"/> <property name="suffix" 
+		value="${web.view.suffix}"/> </bean> -->
+		
+		
+	<util:map id="freemarkerLayoutDirectives">
+        <entry key="extends"><bean class="cn.edu.xmut.core.template.ExtendsDirective"/></entry>
+        <entry key="block"><bean class="cn.edu.xmut.core.template.BlockDirective"/></entry>
+        <entry key="put"><bean class="cn.edu.xmut.core.template.PutDirective"/></entry>
+    </util:map>
+	<bean id="freemarkerControllerDirectives" class="cn.edu.xmut.core.template.ControllerDirective"/>
+	<bean id="freemarkerActionDirectives" class="cn.edu.xmut.core.template.ActionDirective"/>
+	<bean id="freemarkerToJsonDirectives" class="cn.edu.xmut.core.template.ToJsonDirective"/>
+	<bean id="paginationDirective" class="cn.edu.xmut.core.tempftl.directive.PaginationDirective"/>
+	<bean id="execDirective" class="cn.edu.xmut.core.template.ExecDirective"/>
+	<bean id="repparamDirective" class="cn.edu.xmut.core.template.RepParamDirective"/>
+	<bean id="permissionDirective" class="cn.edu.xmut.core.template.PermissionDirective"/>
+	
+	<bean id="freeMarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views/"/>
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="freemarkerVariables">
+        	<map>
+        		<entry key="action" value-ref="freemarkerActionDirectives" />
+        		<entry key="toJson" value-ref="freemarkerToJsonDirectives" />
+            	<entry key="layout" value-ref="freemarkerLayoutDirectives" />
+            	<entry key="controller" value-ref="freemarkerControllerDirectives" />
+            	<entry key="pagination" value-ref="paginationDirective" />
+            	<entry key="exec" value-ref="execDirective" />
+            	<entry key="permission" value-ref="permissionDirective" />
+            	<entry key="repparam" value-ref="repparamDirective" />
+        	</map>
+        </property>
+        <property name="freemarkerSettings"> 
+			<props> 
+				<prop key="template_update_delay">1</prop> 
+				<prop key="defaultEncoding">UTF-8</prop> 
+				<prop key="url_escaping_charset">UTF-8</prop> 
+				<prop key="locale">zh_CN</prop> 
+				<prop key="boolean_format">true,false</prop> 
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop> 
+				<prop key="date_format">yyyy-MM-dd</prop> 
+				<prop key="time_format">HH:mm:ss</prop> 
+				<prop key="number_format">0.######</prop> 
+				<prop key="whitespace_stripping">true</prop> 
+			</props> 
+		</property> 
+    </bean>
+    
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="cn.edu.xmut.core.utils.BasePathView" />
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="suffix" value="${web.view.suffix}" />
+		<property name="exposeRequestAttributes" value="false" /> 
+		<property name="exposeSessionAttributes" value="false" /> 
+		<property name="exposeSpringMacroHelpers" value="true" /> 
+	</bean>
+	
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="maxUploadSize" value="${web.maxUploadSize}" />  
+    </bean>
+	<!-- 定义无Controller的path<->view直接映射 -->
+	<mvc:view-controller path="/"
+		view-name="redirect:${web.view.index}" />
+
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<!--
+		 Configures view for returning JSON to the client
+	-->
+<!-- 	<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"> -->
+<!-- 		<property name="contentType" value="text/plain"/> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> -->
+<!-- 		<property name="messageConverters"> -->
+<!-- 			<util:list id="beanList"> -->
+<!-- 				<ref bean="jsonMessageConverter"/> -->
+<!-- 			</util:list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+	<!--
+		 Converts JSON to POJO and vice versa
+	-->
+<!-- 	<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/> -->
+	
+	<!-- security -->
+	
+</beans>

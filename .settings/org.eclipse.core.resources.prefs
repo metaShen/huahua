@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/webapp/WEB-INF/views/account/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/login.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/pay/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/property/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/reg2.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/revenue/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/total/index.ftl=UTF-8
+encoding//src/main/webapp/WEB-INF/views/user/index.ftl=UTF-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8

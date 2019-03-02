@@ -1,0 +1,17 @@
+
+entityPath = src/main/java/cn/edu/xmut/modules/book/bean
+daoPath = src/main/java/cn/edu/xmut/modules/book/dao
+servicePath = src/main/java/cn/edu/xmut/modules/book/service
+serviceImplPath = src/main/java/cn/edu/xmut/modules/book/service/impl
+
+
+
+
+# 提醒：以下路径不能改动
+daoTemplatePath = src/main/java/cn/edu/xmut/core/gen/daoTemplate.ftl
+serviceTemplatePath = src/main/java/cn/edu/xmut/core/gen/serviceTemplate.ftl
+serviceImplTemplatePath = src/main/java/cn/edu/xmut/core/gen/serviceImplTemplate.ftl
+entityTemplatePath = src/main/java/cn/edu/xmut/core/gen/entityTemplate.ftl
+
+# 虚拟的临时模板，没有该文件
+tempFtlPath = src/main/java/cn/edu/xmut/core/gen

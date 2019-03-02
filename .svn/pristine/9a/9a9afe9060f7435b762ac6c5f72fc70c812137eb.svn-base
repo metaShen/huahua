@@ -1,0 +1,98 @@
+#============================#
+#===== Database sttings =====#
+#============================#
+
+#mysql database setting
+#jdbc.driver=com.mysql.jdbc.Driver
+#jdbc.url=jdbc:mysql://127.0.0.1:3306/jeesite?useUnicode=true&characterEncoding=utf-8
+#jdbc.username=root
+#jdbc.password=123456
+
+
+#mysql database settings
+#jdbc.driver=net.sourceforge.jtds.jdbc.Driver
+#jdbc.url=jdbc:jtds:sqlserver://localhost:1433/ods
+
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/book?useUnicode=true&characterEncoding=UTF-8
+jdbc.username=root
+jdbc.password=root
+
+#jdbc.driver=oracle.jdbc.driver.OracleDriver
+#jdbc.url=jdbc:oracle:thin:@172.16.163.40:1521:mnhr
+#jdbc.url=jdbc:oracle:thin:@192.168.1.102:1521:xe
+#jdbc.url=jdbc:oracle:thin:@172.24.244.142:1521:xe
+#jdbc.url=jdbc:oracle:thin:@172.18.1.180:1521:ldj2
+#jdbc.url=jdbc:oracle:thin:@172.18.1.180:1521:ldj2
+#jdbc.url=jdbc:oracle:thin:@117.30.90.195:1521:xe
+#jdbc.url=jdbc:oracle:thin:@172.16.163.40:1521:mnhr
+#jdbc.username=kerong
+#jdbc.password=kerong123
+#jdbc.username=XMZJ
+#jdbc.password=XMZJ
+
+#pool settings
+pool.minIdle=3
+pool.maxActive=5
+
+#hibernate settings
+hibernate.search.default.indexBase=indexes
+hibernate.show_sql=true
+hibernate.query.factory_class=org.hibernate.hql.classic.ClassicQueryTranslatorFactory
+
+#============================#
+#====== Global sttings ======#
+#============================#
+
+#product sttings
+productName=\u53A6\u6F33\u6CC9\u516C\u5171\u62DB\u8058\u5E73\u53F0
+copyrightYear=201
+version=V1.0.0
+
+
+
+#page settings
+page.pageSize=10
+
+#============================#
+#===== Spring settings ======#
+#============================#
+
+#home page path
+web.view.index=/a
+
+#internal resource view resolver
+web.view.prefix=/WEB-INF/views/
+web.view.suffix=.ftl
+
+#max upload size. 10M=10*1024*1024(B)=10485760 bytes
+web.maxUploadSize=10485760
+
+
+#------------ Template ------------
+template.encoding=UTF-8
+template.update_delay=0
+template.number_format=0.######
+template.boolean_format=true,false
+template.datetime_format=yyyy-MM-dd
+template.date_format=yyyy-MM-dd
+template.time_format=HH:mm:ss
+template.loader_path=/WEB-INF/views,classpath:/
+template.suffix=.ftl
+#------------ Common ------------
+locale=zh_CN
+url_escaping_charset=UTF-8
+
+
+#------------ System ------------
+system.name=\u53A6\u6F33\u6CC9\u516C\u5171\u62DB\u8058\u5E73\u53F0
+system.version=1.01 
+system.description=\u62DB\u8058\u5E73\u53F0
+system.show_powered=true
+system.project_name=ecom
+
+#------------ Message ------------
+#message.cache_seconds=3600
+#message.common_path=/WEB-INF/language/common/message
+#message.shop_path=/WEB-INF/language/shop/message
+#message.admin_path=/WEB-INF/language/admin/message
