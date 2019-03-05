@@ -1,4 +1,5 @@
-»·¾³´î½¨£ºjdk1.7.0(1.8.0)+tomcat8+maven3.2.3
-ÔËĞĞÂ·¾¶£ºsrc/test/jav/cn/edu/xmut/functional/QuickStartServer.java
-³Ö¾Ã»¯¶ÔÏóÂ·¾¶£ºsrc/main/java/cn/edu/xmut/moudles
-¿ÉÊÓ»¯ÎÄ¼şÂ·¾¶(.ftl)£ºsrc/main/java/webapp/WEN-INF/views
+ç¯å¢ƒæ­å»ºï¼šjdk1.7.0(1.8.0)+tomcat8+maven3.2.3
+è¿è¡Œè·¯å¾„ï¼šsrc/test/jav/cn/edu/xmut/functional/QuickStartServer.java
+æŒä¹…åŒ–å¯¹è±¡è·¯å¾„ï¼šsrc/main/java/cn/edu/xmut/moudles
+å¯è§†åŒ–æ–‡ä»¶è·¯å¾„(.ftl)ï¼šsrc/main/java/webapp/WEN-INF/views
+æ¥å£è·¯å¾„ï¼šsrc/main/java/cn/edu/xmut/web
