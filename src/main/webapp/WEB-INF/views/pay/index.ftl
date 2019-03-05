@@ -1,16 +1,63 @@
+
 <!DOCTYPE html>
 <html>
-<head>
- 	  <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>支出表</title>
-</head>
-<body>
-    <div><a href="user.jhtml">返回首页</a></div>
-       <script>  
+    <title>支出状况</title>
+    <link href="static/plug/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="static/plug/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="static/plug/hplus/css/animate.min.css" rel="stylesheet">
+    <link href="static/plug/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    
 
-       </script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>当月家庭支出情况</h5>  
+                        <div class="ibox-tools">
+                            <a href="projects.html" class="btn btn-primary btn-xs">创建新支出</a>
+                            
+                            <a href="user.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="project-list">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th class="project-title">序号</th>
+                                        <th class="project-title">姓名</th>
+                                        <th class="project-title">支出金额</th>
+                                        <th class="project-title">支出时间</th>                          
+                                        <th class="project-title">用途</th>
+                                    </tr>
+                               		<tr>
+                                        <td class="project-title">number</td>
+                                        <td class="project-title">user</td>                                        
+                                        <td class="project-title">price</td>
+                                        <td class="project-title">time</td>
+                                        <td class="project-title">purpose</td>
+                                        <td class="project-actions">
+                                            <button  class="btn btn-white btn-sm" onclick="show();"><i class="fa fa-folder"></i> 查看 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="edit();"><i class="fa fa-pencil"></i> 编辑 </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
+    <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
     <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     </body>
-</html>
+    </html>
+
