@@ -30,7 +30,8 @@ public class Card extends IdEntity{
 	@Size(max=32)
 	String cardid; 		//卡id
 	
-	Date time ;			//办卡时间--用于排序 
+	@Size(max=32)
+	String time ;			//办卡时间--用于排序 
 
 	public String getType() {
 		return type;
@@ -56,13 +57,14 @@ public class Card extends IdEntity{
 		this.cardid = cardid;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
+
 
 	
 }

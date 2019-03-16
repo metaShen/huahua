@@ -44,7 +44,10 @@ public class IndexController extends SummerBaseController{
 	public String reg(HttpServletRequest request){
 		return "/reg2";
 	}
-	
+	@RequestMapping("/index")
+	public String ind(HttpServletRequest request){
+		return "/index";
+	}
 	
 	@RequestMapping("/500")
 	public String error500(HttpServletRequest request){

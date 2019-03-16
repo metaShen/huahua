@@ -16,6 +16,7 @@ public class User extends IdEntity{
 		USERNAME, 
 		SEX, 
 		PASSWORD, 
+		FAM, 
 		TYPE, 
 		AGE, 
 	}
@@ -30,7 +31,9 @@ public class User extends IdEntity{
 	String sex; 
 	@Size(max=32)
 	String password; 
-	int type;  //身份--父母为0管理员，其他成员为1普通用户
+	@Size(max=32)
+	String fam; 	//家庭身份
+	int type;  //0管理员，1普通用户
 	int age;
 	public String getName() {
 		return name;
@@ -67,6 +70,12 @@ public class User extends IdEntity{
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	public String getFam() {
+		return fam;
+	}
+	public void setFam(String fam) {
+		this.fam = fam;
 	}	
 
 	

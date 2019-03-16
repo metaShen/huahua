@@ -1,6 +1,5 @@
 package cn.edu.xmut.modules.pay.bean;
 
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -17,9 +16,9 @@ public class Pay extends IdEntity{
 		ID, 
 		NUMBER, 
 		PURPOSE, 
+		TIME, 
 		USERID, 
 		PRICE, 
-		TIME, 
 	}
 	// 自动生成区域结束
 	
@@ -32,10 +31,13 @@ public class Pay extends IdEntity{
 	String purpose; 	//用途
 	
 	@Size(max=32)
+	String time;			//支出时间
+	
+	@Size(max=32)
 	String userid; 		//用户id--外键
 	
 	float price; 		//支出金额
-	Date time;			//支出时间
+	
 
 	public String getNumber() {
 		return number;
@@ -70,13 +72,15 @@ public class Pay extends IdEntity{
 		this.userid = userid;
 	}
 
-	public Date getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
+
+
 
 	
 }

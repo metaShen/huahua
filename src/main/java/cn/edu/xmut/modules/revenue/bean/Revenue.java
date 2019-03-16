@@ -18,7 +18,7 @@ public class Revenue extends IdEntity{
 		NUMBER, 
 		SOURCE, 
 		USERID, 
-		TYPE, 
+		TIME, 
 		PRICE, 
 	}
 	// 自动生成区域结束
@@ -31,7 +31,7 @@ public class Revenue extends IdEntity{
 	@Size(max=32)
 	String userid; 		//用户id--外键
 	
-	Date type; 			 //收入时间
+	String time; 			 //收入时间
 	float price;		//收入金额
 	public String getNumber() {
 		return number;
@@ -51,17 +51,19 @@ public class Revenue extends IdEntity{
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public Date getType() {
-		return type;
-	}
-	public void setType(Date type) {
-		this.type = type;
-	}
+
+
 	public float getPrice() {
 		return price;
 	}
 	public void setPrice(float price) {
 		this.price = price;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
 	} 
 
 		

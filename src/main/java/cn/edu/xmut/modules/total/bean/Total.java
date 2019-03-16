@@ -17,8 +17,8 @@ public class Total extends IdEntity{
 		USERID, 
 		PAYID, 
 		REVENUEID, 
-		PRCIE, 
 		TIME, 
+		PRCIE, 
 	}
 	// 自动生成区域结束
 	
@@ -29,8 +29,11 @@ public class Total extends IdEntity{
 	String payid; 		//支出表id--外键
 	@Size(max=32)
 	String revenueid; 	//收入表id--外键
+	@Size(max=32)
+	String time;			//统计时间
+	
 	float prcie;		//收入支出差
-	Date time;			//统计时间
+
 	public String getUserid() {
 		return userid;
 	}
@@ -50,10 +53,11 @@ public class Total extends IdEntity{
 	public void setRevenueid(String revenueid) {
 		this.revenueid = revenueid;
 	}
-	public Date getTime() {
+
+	public String getTime() {
 		return time;
 	}
-	public void setTime(Date time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 	public float getPrcie() {
