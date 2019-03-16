@@ -36,7 +36,7 @@ function login(){
 		success:function(data){     
 			if(!data.error){
 		        alert(data.data);
-	            location.href = "user.jhtml";
+	            location.href = "index.jhtml";
 			}else{
 				alert(data.data);
 			}

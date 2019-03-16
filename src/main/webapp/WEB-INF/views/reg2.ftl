@@ -11,7 +11,7 @@
     <div class="middle-box text-center loginscreen  animated fadeInDown">
         <div>    
         <div><h3>欢迎来到注册页面</h3></div>
-            <form class="m-t" role="form" action="http://www.zi-han.net/theme/hplus/index.html">
+            <form class="m-t" action="#">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="用户名" id="username">
                 </div>
@@ -28,7 +28,7 @@
                     <input type="text" class="form-control" placeholder="年龄"  id="age">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="家庭身份" id="type">
+                    <input type="text" class="form-control" placeholder="家庭身份" id="fam">
                 </div>
                 <button type="button" class="btn btn-primary block full-width m-b" onclick = "reg()">注 册</button>
 			 <a href="login.jhtml">点此登录</a>
@@ -37,7 +37,7 @@
     </div>
     <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
     <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    	<script type="text/javascript" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
 function reg(){
 
@@ -50,6 +50,7 @@ function reg(){
 			  name:$('#name').val(),
 			  sex:$('#sex').val(),
 			  type:0,
+			  fam:$('#fam').val(),
 			  },
 		success:function(data){
 			if(!data.error){

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-    <title>支出状况</title>
+    <title>卡务信息</title>
     <link href="static/plug/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="static/plug/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="static/plug/hplus/css/animate.min.css" rel="stylesheet">
@@ -18,8 +18,9 @@
 
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>家庭成员管理</h5>  
-                        <div class="ibox-tools">                   
+                        <h5>卡务信息</h5>  
+                        <div class="ibox-tools">
+                                            
                             <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
                         </div>
                     </div>
@@ -28,25 +29,18 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        <th class="project-title">用户名</th>
-                                        <th class="project-title">姓名</th>
-                                        <th class="project-title">年龄</th>
-                                        <th class="project-title">性别</th>                          
-                                        <th class="project-title">家庭身份</th>
+                                        <th class="project-title">卡号</th>
+                                        <th class="project-title">持卡人</th>
+                                        <th class="project-title">绑定时间</th>
                                     </tr>
-                                     <@action uri = "pUserWeb!page" nickname = "users" />
-								<#list users.data.content as user>
                                		<tr>
-                                        <td class="project-title" >${user.username }</td>
-                                        <td class="project-title" >${user.name }</td>                                        
-                                        <td class="project-title" >${user.age }</td>
-                                        <td class="project-title" >${user.sex }</td>
-                                        <td class="project-title" >${user.fam }</td>
+                                        <td class="project-title" >bankid</td>
+                                        <td class="project-title" >userid</td>                                        
+                                        <td class="project-title" >time</td>
                                         <td class="project-actions">
-                       <button class="btn btn-white btn-sm"  onclick="del('${user.id}');"><i class="fa fa-pencil"></i> 删除 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${card.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
                                     </tr>
-                                    </#list>
                                     </tbody>
                                 </table>
                             </div>
@@ -63,12 +57,11 @@
 	<script src="static/plug/jquery-summer/ajax.js"></script>
 	<script src="static/plug/jquery-summer/form.js"></script>
 	<script src="static/plug/jquery-summer/encapsulate-1.2.js"></script>
-	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script>
 	function del(id){
 		$.ajax({
 			type:'POST',
-			url:"user/delete.jhtml",
+			url:"card/delete.jhtml",
 			data:{id:id},
 			success: function(data){
 				if(!data.error){
