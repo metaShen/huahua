@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.edu.xmut.core.persistence.Page;
+import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.core.web.BaseController;
 import cn.edu.xmut.modules.pay.bean.Pay;
 import cn.edu.xmut.modules.pay.service.impl.PayServiceImpl;
@@ -27,7 +29,7 @@ public class PayController extends BaseController{
 		if(!beanValidator(pay)){
 			return JsonTool.genErrorMsg("添加失败！");
 		}else{
-			Pay iepay = payService.getByTwoFields(Pay.FieldOfPay.ID.name(), pay.getId(),Pay.FieldOfPay.NUMBER.name(), pay.getNumber());
+			Pay iepay = payService.getByOneField(Pay.FieldOfPay.NUMBER.name(), pay.getNumber());
 			if(iepay != null){
 				return JsonTool.genErrorMsg("添加失败！");
 			}else{
@@ -38,12 +40,17 @@ public class PayController extends BaseController{
 	}
 	
 	@RequestMapping("/edit")
-	public @ResponseBody JSONObject edit(String id){
-			Pay pay = payService.getByOneField(Pay.FieldOfPay.ID.name(), id);
-			if(pay == null){
+	public @ResponseBody JSONObject edit(Pay pay){
+			Pay iepay = payService.getByOneField(Pay.FieldOfPay.NUMBER.name(), pay.getNumber());
+			if(iepay == null){
 				return JsonTool.genErrorMsg("修改失败！");
 			}else{
-				payService.save(pay);
+				iepay.setNumber(pay.getNumber());
+				iepay.setPrice(pay.getPrice());
+				iepay.setPurpose(pay.getPurpose());
+				iepay.setTime(pay.getTime());
+				iepay.setUserid(pay.getUserid());
+				payService.save(iepay);
 				return JsonTool.genSuccessMsg("修改成功！");
 			}
 	}
@@ -53,6 +60,12 @@ public class PayController extends BaseController{
 			return JsonTool.genSuccessMsg(pays);
 		}
 
+		@RequestMapping("/page")
+	    public @ResponseBody JSONObject page(Pageable pageable){
+			Page<Pay> pays = payService.findPageOrderBy(pageable,Pay.FieldOfPay.ID.name()+" DESC");
+			return JsonTool.genSuccessMsg(pays);
+		}
+		   
 		@RequestMapping("/delete")
 		public @ResponseBody JSONObject delete(String id){
 			Pay iepay = payService.getByOneField(Pay.FieldOfPay.ID.name(), id);

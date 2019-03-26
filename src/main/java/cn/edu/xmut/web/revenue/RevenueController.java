@@ -1,8 +1,11 @@
 package cn.edu.xmut.web.revenue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,6 @@ import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.core.web.BaseController;
 import cn.edu.xmut.modules.revenue.bean.Revenue;
 import cn.edu.xmut.modules.revenue.service.impl.RevenueServiceImpl;
-import cn.edu.xmut.modules.user.bean.User;
 import cn.edu.xmut.utils.JsonTool;
 import cn.edu.xmut.utils.UtilCtrl;
 
@@ -62,13 +64,19 @@ public class RevenueController extends BaseController{
 			}
 		}
 		@RequestMapping("/edit")
-		public @ResponseBody JSONObject edit(String id){
-			Revenue ierevenue = revenueService.getByOneField(Revenue.FieldOfRevenue.ID.name(), id);
+		public @ResponseBody JSONObject edit(Revenue revenue){
+			Revenue ierevenue = revenueService.getByOneField(Revenue.FieldOfRevenue.NUMBER.name(), revenue.getNumber());
 			if(ierevenue == null){
 				return JsonTool.genErrorMsg("修改失败！");
 			}else{
+				ierevenue.setNumber(revenue.getNumber());
+				ierevenue.setPrice(revenue.getPrice());
+				ierevenue.setSource(revenue.getSource());
+				ierevenue.setTime(revenue.getTime());
+				ierevenue.setUserid(revenue.getUserid());
 				revenueService.save(ierevenue);
 				return JsonTool.genSuccessMsg("修改成功！");
 			}
-		} 
+		}
+
 }

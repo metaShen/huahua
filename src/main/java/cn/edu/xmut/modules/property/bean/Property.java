@@ -25,8 +25,7 @@ public class Property extends IdEntity{
 	// 自动生成区域结束
 	
 	private static final long serialVersionUID = 1L;
-	@Size(max=32)
-	String type; 		//缴费类型
+	int type; 		//缴费类型 0--水费，1--网费，2--物业费，3--其它
 	@Size(max=32)
 	String userid; 		//缴费用户
 	@Size(max=32)
@@ -63,10 +62,11 @@ public class Property extends IdEntity{
 	public void setDay(String day) {
 		this.day = day;
 	}
-	public String getType() {
+
+	public int getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 	public float getPrice() {

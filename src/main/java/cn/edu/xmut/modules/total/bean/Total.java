@@ -14,7 +14,6 @@ public class Total extends IdEntity{
 // 自动生成区域开始
 	public static enum FieldOfTotal {
 		ID, 
-		USERID, 
 		PAYID, 
 		REVENUEID, 
 		TIME, 
@@ -24,8 +23,6 @@ public class Total extends IdEntity{
 	
 	private static final long serialVersionUID = 1L;
 	@Size(max=32)
-	String userid; 		//用户id--外键
-	@Size(max=32)
 	String payid; 		//支出表id--外键
 	@Size(max=32)
 	String revenueid; 	//收入表id--外键
@@ -34,12 +31,7 @@ public class Total extends IdEntity{
 	
 	float prcie;		//收入支出差
 
-	public String getUserid() {
-		return userid;
-	}
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+
 	public String getPayid() {
 		return payid;
 	}

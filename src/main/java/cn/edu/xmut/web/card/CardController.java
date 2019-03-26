@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.edu.xmut.core.persistence.Page;
+import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.core.web.BaseController;
+import cn.edu.xmut.modules.account.bean.Account;
+import cn.edu.xmut.modules.account.service.impl.AccountServiceImpl;
 import cn.edu.xmut.modules.card.bean.Card;
 import cn.edu.xmut.modules.card.service.impl.CardServiceImpl;
+import cn.edu.xmut.modules.user.bean.User;
+import cn.edu.xmut.modules.user.service.impl.UserServiceImpl;
 import cn.edu.xmut.utils.JsonTool;
 import cn.edu.xmut.utils.UtilCtrl;
 
@@ -21,27 +27,37 @@ import cn.edu.xmut.utils.UtilCtrl;
 public class CardController extends BaseController{
 	@Resource(name="cardServiceImpl")
 	private CardServiceImpl cardService;
+	@Resource(name="userServiceImpl")
+	private UserServiceImpl userService;
+	@Resource(name="accountServiceImpl")
+	private AccountServiceImpl accountService;
 
-	@RequestMapping("/add")
-	public @ResponseBody JSONObject add(Card card){
-		if(!beanValidator(card)){
-			return JsonTool.genErrorMsg("添加失败！");
-		}else{
-			Card iecard = cardService.getByTwoFields(Card.FieldOfCard.USERID.name(), card.getUserid(),Card.FieldOfCard.CARDID.name(), card.getCardid());
-			if(iecard != null){
-				return JsonTool.genErrorMsg("添加失败！");
-			}else{
-				cardService.save(card);
-				return JsonTool.genSuccessMsg("添加成功！");
+	@RequestMapping("/bind")
+	public @ResponseBody JSONObject bind(String userid,String accountid){
+			Card iecard = new Card();
+			User ieUser = userService.getByOneField(User.FieldOfUser.NAME.name(), userid);
+			Account ieAccount = accountService.getByOneField(Account.FieldOfAccount.BANKNUMBER.name(), accountid);
+			if( ieAccount ==null || ieUser == null){
+				return JsonTool.genErrorMsg("绑定失败,卡号不正确！");
+			}
+			else{
+				iecard.setAccountid(ieAccount.getBanknumber());
+				iecard.setPrice(ieAccount.getBalance());
+				iecard.setUserid(ieUser.getName());
+				cardService.save(iecard);
+				return JsonTool.genSuccessMsg("绑定成功！");
 			}
 		}
-	}
 	
 		public JSONObject list(){
 			List<Card> cards = cardService.findAllOrderBy(Card.FieldOfCard.ID.name()+" ASC");
 			return JsonTool.genSuccessMsg(cards);
 		}
-
+		@RequestMapping("/page")
+	    public @ResponseBody JSONObject page(Pageable pageable){
+			Page<Card> cards = cardService.findPageOrderBy(pageable,Card.FieldOfCard.ID.name()+" DESC");
+			return JsonTool.genSuccessMsg(cards);
+		}
 		@RequestMapping("/delete")
 		public @ResponseBody JSONObject delete(String id){
 			Card iecard = cardService.getByOneField(Card.FieldOfCard.ID.name(), id);

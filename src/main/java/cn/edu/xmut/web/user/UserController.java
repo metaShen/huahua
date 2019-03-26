@@ -55,19 +55,15 @@ public class UserController extends BaseController{
 		}
 	}
 	@RequestMapping("/edit")
-	public @ResponseBody JSONObject edit(User user){
-		if(!beanValidator(user)){
-			return JsonTool.genErrorMsg("修改失败！");
-		}else{
-			User ieuser = userService.getByOneField(User.FieldOfUser.ID.name(), user.getId());
+	public @ResponseBody JSONObject edit(String username,String password){
+			User ieuser = userService.getByOneField(User.FieldOfUser.USERNAME.name(), username);
 			if(ieuser == null){
-				return JsonTool.genErrorMsg("该用户不存在！");
+				return JsonTool.genErrorMsg("修改密码失败！");
 			}else{
-
-				userService.save(user);
+				ieuser.setPassword(password);
+				userService.save(ieuser);
 				return JsonTool.genSuccessMsg("修改成功！");
 			}
-		}
 	}
 	@RequestMapping("/list")
 		public  JSONObject list(){
