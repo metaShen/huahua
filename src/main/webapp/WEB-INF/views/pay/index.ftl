@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,7 +20,9 @@
                     <div class="ibox-title">
                         <h5>当月家庭支出情况</h5>  
                         <div class="ibox-tools">
-                      <button class="btn btn-primary btn-xs" id="add" >创建新支出</button>                          
+                        <#if user.type=1>
+                      <button class="btn btn-primary btn-xs" id="add" >创建新支出</button>   
+                      </#if>                       
                             <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
                         </div>
                     </div>
@@ -36,7 +38,7 @@
                                         <th class="project-title">支出用途</th>
                                     </tr>
                                     <@action uri = "pPayWeb!page" nickname = "pays" />
-								<#list pays.data.content as pay>
+								<#list pays.data.content?sort_by("number") as pay>
                                		<tr>
                                         <td class="project-title" >${pay.number!}</td>
                                         <td class="project-title" >${pay.userid!}</td>                                        
@@ -45,8 +47,8 @@
                                         <td class="project-title" >${pay.purpose!}</td>
                                         <#if user.type=1>
                                         <td class="project-actions">
-                                            <button  class="btn btn-white btn-sm" id="edit"><i class="fa fa-folder"></i> 编辑 </button>
-                                            <button class="btn btn-white btn-sm"  onclick="del();"><i class="fa fa-pencil"></i> 删除 </button>
+                                            <button  class="btn btn-white btn-sm edit" ><i class="fa fa-folder"></i> 编辑 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${pay.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
                                         </#if>
                                     </tr>
@@ -83,11 +85,11 @@
 			dataType:"json"
 		});
 		}
-	$("#edit").click(function(){
-		$summerLayer("修改支出信息","pay.jhtml?p=edit",["500px","400px"]);
+	$(".edit").click(function(){
+		$summerLayer("修改支出信息","pay.jhtml?p=edit",["500px","550px"]);
 	});
 	$("#add").click(function(){
-		$summerLayer("创建新支出","pay.jhtml?p=add",["500px","400px"]);
+		$summerLayer("创建新支出","pay.jhtml?p=add",["500px","550px"]);
 	});
     </script>
     </body>

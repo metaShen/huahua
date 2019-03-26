@@ -7,7 +7,7 @@
     <link href="static/plug/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
         
 </head>
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
     <div class="middle-box text-center loginscreen  animated fadeInDown">
         <div>    
             <form class="m-t" role="form" action="#">
@@ -23,13 +23,13 @@
                   <div class="form-group"  id="data_1">
                   <div class="input-group date">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                <input type="text" class="form-control" value="2019-01-01" id="time">
+                                <input type="text" class="form-control" placeholder="收入时间" id="time">
                             </div>
                 </div>
    				  <div class="form-group">
                     <input type="text" class="form-control" placeholder="收入来源" id="source" >
                 </div>
-                <button type="button" class="btn btn-primary block full-width m-b" onclick="add();">提交</button>
+                <button type="button" class="btn btn-primary block full-width m-b" onclick="add();">添加</button>
             </form>
         </div>
     </div>

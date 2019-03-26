@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,7 +20,9 @@
                     <div class="ibox-title">
                         <h5>当月家庭收入情况</h5>
                         <div class="ibox-tools">
+                        <#if user.type=1>
                             <button class="btn btn-primary btn-xs" id="add" >创建新收入</button>
+                            </#if>
                             <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>   
                         </div>
                     </div>
@@ -36,7 +38,7 @@
                                         <th class="project-title">收入来源</th>
                                     </tr>
                                      	 <@action uri = "pRevenueWeb!page" nickname = "revenues" />
-								<#list revenues.data.content as revenue>
+								<#list revenues.data.content?sort_by("number") as revenue>
                                		<tr>
                                         <td class="project-title">${revenue.number!}</td>
                                         <td class="project-title">${revenue.userid!}</td>                                        
@@ -45,8 +47,8 @@
                                         <td class="project-title" >${revenue.source!}</td>
                                         <#if user.type=1>
                                         <td class="project-actions">
-                                            <button  class="btn btn-white btn-sm" id="edit"><i class="fa fa-folder"></i> 编辑 </button>
-                                            <button class="btn btn-white btn-sm"  onclick="del();"><i class="fa fa-pencil"></i> 删除 </button>
+                                            <button  class="btn btn-white btn-sm edit" ><i class="fa fa-folder"></i> 编辑 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${revenue.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
                                         </#if>
                                     </tr>
@@ -84,11 +86,11 @@
 			dataType:"json"
 		});
 		}
-	$("#edit").click(function(){
+	$(".edit").click(function(){
 		$summerLayer("修改收入信息","revenue.jhtml?p=edit",["500px","400px"]);
 	});
 	$("#add").click(function(){
-		$summerLayer("创建新收入","revenue.jhtml?p=add",["500px","400px"]);
+		$summerLayer("创建新收入","revenue.jhtml?p=add",["500px","550px"]);
 	});
     </script>
     </body>

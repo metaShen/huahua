@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,7 +20,9 @@
                     <div class="ibox-title">
                         <h5>卡务信息管理</h5>
                         <div class="ibox-tools">
+                        <#if user.type=1>
                             <button class="btn btn-primary btn-xs" id="add" >添加新卡</button>
+                            </#if>
                             <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>   
                         </div>
                     </div>
@@ -33,21 +35,40 @@
                                         <th class="project-title">所属银行</th>
                                         <th class="project-title">卡类型</th>
                                         <th class="project-title">卡上余额</th>                          
-                                        <th class="project-title">还款金额</th>
-                                        <th class="project-title">还款日期</th>
+                                        <th class="project-title">需还款金额</th>
+                                        <th class="project-title">截止日期</th>
                                     </tr>
+                                    <@action uri = "pAccountWeb!page" nickname = "accounts" />
+								<#list accounts.data.content?sort_by("banknumber") as account>
                                		<tr>
-                                        <td class="project-title">{account.banknumber}</td>
-                                        <td class="project-title">{account.bank}</td>                                        
-                                        <td class="project-title">{account.type}</td>
-                                        <td  class="project-title">{account.balance}</td>
-                                        <td class="project-title" >{account.repayment}</td>
-                                        <td class="project-title" >{account.time}</td>
+                                        <td class="project-title">${account.banknumber}</td>                                
+                    			 <#if account.type=0>                         
+                                        <td class="project-title">${account.bank}</td>
+                                         <td class="project-title">储蓄卡</td>                
+                                        <td  class="project-title">${account.balance}</td>
+                                        <td class="project-title" >-</td>
+                                        <td class="project-title" >-</td>
+                                  <#elseif account.type=1>
+                                        <td class="project-title">${account.bank}</td>   
+                                        <td class="project-title">信用卡</td>   
+                                        <td  class="project-title">-</td>
+                                        <td class="project-title" >${account.repayment}</td>
+                                        <td class="project-title" >${account.time}</td>
+                                   <#elseif account.type=2>    
+                                   		 <td class="project-title">-</td> 
+                                   		 <td class="project-title">其它</td>     
+                                        <td  class="project-title">${account.balance}</td>
+                                        <td class="project-title" >-</td>
+                                        <td class="project-title" >-</td>
+                                    </#if>
                                         <td class="project-actions">
-                                            <button  class="btn btn-white btn-sm" id="edit"><i class="fa fa-folder"></i> 编辑 </button>
-                                            <button class="btn btn-white btn-sm"  onclick="del('{account.id}');"><i class="fa fa-pencil"></i> 删除 </button>
+                                      <#if user.type=1>
+                                            <button  class="btn btn-white btn-sm edit" ><i class="fa fa-folder"></i> 编辑 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${account.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
+                                        </#if>
                                     </tr>
+                                    </#list>
                                     </tbody>
                                 </table>
                             </div>
@@ -82,11 +103,11 @@
 			dataType:"json"
 		});
 		}
-	$("#edit").click(function(){
-		$summerLayer("修改卡务信息","account.jhtml?p=edit",["500px","400px"]);
+	$(".edit").click(function(){
+		$summerLayer("修改卡务信息","account.jhtml?p=edit",["600px","550px"]);
 	});
 	$("#add").click(function(){
-		$summerLayer("添加新卡","account.jhtml?p=add",["500px","400px"]);
+		$summerLayer("添加新卡","account.jhtml?p=add",["600px","550px"]);
 	});
     </script>
     </body>

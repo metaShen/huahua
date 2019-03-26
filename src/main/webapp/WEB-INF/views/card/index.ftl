@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,7 +20,7 @@
                     <div class="ibox-title">
                         <h5>卡务信息</h5>  
                         <div class="ibox-tools">
-                                            
+                             <a onclick="bind('${user.name}');" class="btn btn-primary btn-xs">绑定新卡</a>                 
                             <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
                         </div>
                     </div>
@@ -31,17 +31,40 @@
                                     <tr>
                                         <th class="project-title">卡号</th>
                                         <th class="project-title">持卡人</th>
-                                        <th class="project-title">绑定时间</th>
+                                        <th class="project-title">余额</th>
                                     </tr>
+                                     <#if user.type==1>
+                                      <@action uri = "pCardWeb!page" nickname = "cards" />
+								<#list cards.data.content?sort_by("accountid") as card>
                                		<tr>
-                                        <td class="project-title" >bankid</td>
-                                        <td class="project-title" >userid</td>                                        
-                                        <td class="project-title" >time</td>
+                                        <td class="project-title" >${card.accountid}</td>
+                                        <td class="project-title" >${card.userid}</td>                                        
+                                        <td class="project-title" >${card.price}</td>
                                         <td class="project-actions">
                                             <button class="btn btn-white btn-sm"  onclick="del('${card.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
                                     </tr>
+                                     </#list>
+                                     
+                                      <#else>
+                                      <@action uri = "pCardWeb!page" nickname = "cards" />
+								<#list cards.data.content as card>
+                               		<tr>
+                               		 <#if card.userid == user.name>
+                                        <td class="project-title" >${card.accountid}</td>
+                                        <td class="project-title" >${card.userid}</td>                                        
+                                        <td class="project-title" >${card.price}</td>
+                                        <td class="project-actions">
+                                        <#if user.type==1>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${card.id}');"><i class="fa fa-pencil"></i> 删除 </button>
+                                        </#if>
+                                        </td>
+                                        </#if>
+                                    </tr>
+                                     </#list>
+                                     </#if>
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>
@@ -51,12 +74,13 @@
         </div>
     <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
     <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
         <script src="static/plug/layer/layer.min.js"></script>
 	<script src="static/plug/jquery-summer/core.js"></script>
 	<script src="static/plug/jquery-summer/ajax.js"></script>
 	<script src="static/plug/jquery-summer/form.js"></script>
 	<script src="static/plug/jquery-summer/encapsulate-1.2.js"></script>
+	<script src="static/plug/hplus/js/plugins/layer/layer.min.js"></script>
+    <script src="static/plug/hplus/js/plugins/layer/extend/layer.ext.js"></script>
     <script>
 	function del(id){
 		$.ajax({
@@ -74,6 +98,27 @@
 			dataType:"json"
 		});
 		}
+    </script>
+    <script>
+    function bind(userid){
+    	layer.prompt({title: '请输入卡号', formType: 3},function(accountid, index){		  
+    		$.ajax({
+    			type:'POST',
+    			url:"card/bind.jhtml",
+    			data:{userid:userid,accountid:accountid},
+    			success: function(data){
+    				if(!data.error){
+    					alert(data.data);
+    					location.reload();
+    				}else{
+    					alert(data.data);
+    				}
+    			},
+    			dataType:"json"
+    		});	
+    		layer.close(index);
+    			});
+    	}
     </script>
     </body>
     </html>

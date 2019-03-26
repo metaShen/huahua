@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -34,8 +34,9 @@
                                         <th class="project-title">性别</th>                          
                                         <th class="project-title">家庭身份</th>
                                     </tr>
+                           <#if user.type=1>
                                      <@action uri = "pUserWeb!page" nickname = "users" />
-								<#list users.data.content as user>
+								<#list users.data.content?sort_by("age") as user>
                                		<tr>
                                         <td class="project-title" >${user.username }</td>
                                         <td class="project-title" >${user.name }</td>                                        
@@ -47,6 +48,18 @@
                                         </td>
                                     </tr>
                                     </#list>
+                                    <#else>
+                              <@action uri = "pUserWeb!page" nickname = "users" />
+								<#list users.data.content?sort_by("age") as user>
+                               		<tr>
+                                        <td class="project-title" >${user.username }</td>
+                                        <td class="project-title" >${user.name }</td>                                        
+                                        <td class="project-title" >${user.age }</td>
+                                        <td class="project-title" >${user.sex }</td>
+                                        <td class="project-title" >${user.fam }</td>
+                                    </tr>
+                                    </#list>
+                                    </#if>
                                     </tbody>
                                 </table>
                             </div>
@@ -57,13 +70,13 @@
         </div>
     <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
     <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
         <script src="static/plug/layer/layer.min.js"></script>
 	<script src="static/plug/jquery-summer/core.js"></script>
 	<script src="static/plug/jquery-summer/ajax.js"></script>
 	<script src="static/plug/jquery-summer/form.js"></script>
 	<script src="static/plug/jquery-summer/encapsulate-1.2.js"></script>
 	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <script>
 	function del(id){
 		$.ajax({
@@ -81,6 +94,7 @@
 			dataType:"json"
 		});
 		}
+
     </script>
     </body>
     </html>
