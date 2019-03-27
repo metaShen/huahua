@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,9 +20,10 @@
                     <div class="ibox-title">
                         <h5>当月家庭支出情况</h5>  
                         <div class="ibox-tools">
-                            <a href="projects.html" class="btn btn-primary btn-xs">创建新支出</a>
-                            
-                            <a href="user.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
+                        <#if user.type=1>
+                      <button class="btn btn-primary btn-xs" id="add" >创建新支出</button>   
+                      </#if>                       
+                            <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
                         </div>
                     </div>
                     <div class="ibox-content">
@@ -34,19 +35,24 @@
                                         <th class="project-title">姓名</th>
                                         <th class="project-title">支出金额</th>
                                         <th class="project-title">支出时间</th>                          
-                                        <th class="project-title">用途</th>
+                                        <th class="project-title">支出用途</th>
                                     </tr>
+                                    <@action uri = "pPayWeb!page" nickname = "pays" />
+								<#list pays.data.content?sort_by("number") as pay>
                                		<tr>
-                                        <td class="project-title">number</td>
-                                        <td class="project-title">user</td>                                        
-                                        <td class="project-title">price</td>
-                                        <td class="project-title">time</td>
-                                        <td class="project-title">purpose</td>
+                                        <td class="project-title" >${pay.number!}</td>
+                                        <td class="project-title" >${pay.userid!}</td>                                        
+                                        <td class="project-title" >${pay.price!}</td>
+                                        <td class="project-title" >${pay.time!}</td>
+                                        <td class="project-title" >${pay.purpose!}</td>
+                                        <#if user.type=1>
                                         <td class="project-actions">
-                                            <button  class="btn btn-white btn-sm" onclick="show();"><i class="fa fa-folder"></i> 查看 </button>
-                                            <button class="btn btn-white btn-sm"  onclick="edit();"><i class="fa fa-pencil"></i> 编辑 </button>
+                                            <button  class="btn btn-white btn-sm edit" ><i class="fa fa-folder"></i> 编辑 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${pay.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
+                                        </#if>
                                     </tr>
+                                    </#list>
                                     </tbody>
                                 </table>
                             </div>
@@ -57,7 +63,35 @@
         </div>
     <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
     <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+        <script src="static/plug/layer/layer.min.js"></script>
+	<script src="static/plug/jquery-summer/core.js"></script>
+	<script src="static/plug/jquery-summer/ajax.js"></script>
+	<script src="static/plug/jquery-summer/form.js"></script>
+	<script src="static/plug/jquery-summer/encapsulate-1.2.js"></script>
+    <script>
+	function del(id){
+		$.ajax({
+			type:'POST',
+			url:"pay/delete.jhtml",
+			data:{id:id},
+			success: function(data){
+				if(!data.error){
+					alert(data.data);
+					location.reload();
+				}else{
+					alert(data.data);
+				}
+			},
+			dataType:"json"
+		});
+		}
+	$(".edit").click(function(){
+		$summerLayer("修改支出信息","pay.jhtml?p=edit",["500px","550px"]);
+	});
+	$("#add").click(function(){
+		$summerLayer("创建新支出","pay.jhtml?p=add",["500px","550px"]);
+	});
+    </script>
     </body>
     </html>
 

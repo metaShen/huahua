@@ -10,7 +10,7 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg cfontsize">
 
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="row">
@@ -20,11 +20,11 @@
                     <div class="ibox-title">
                         <h5>当月家庭收入情况</h5>
                         <div class="ibox-tools">
-                            <a href="" class="btn btn-primary btn-xs">创建新收入</a>
-                            <a href="user.jhtml" class="btn btn-primary btn-xs">返回首页</a>  
-                            
+                        <#if user.type=1>
+                            <button class="btn btn-primary btn-xs" id="add" >创建新收入</button>
+                            </#if>
+                            <a href="index.jhtml" class="btn btn-primary btn-xs">返回首页</a>   
                         </div>
-
                     </div>
                     <div class="ibox-content">
                         <div class="project-list">
@@ -37,17 +37,22 @@
                                         <th class="project-title">收入时间</th>                          
                                         <th class="project-title">收入来源</th>
                                     </tr>
+                                     	 <@action uri = "pRevenueWeb!page" nickname = "revenues" />
+								<#list revenues.data.content?sort_by("number") as revenue>
                                		<tr>
-                                        <td class="project-title">number</td>
-                                        <td class="project-title">user</td>                                        
-                                        <td class="project-title">price</td>
-                                        <td class="project-title">time</td>
-                                        <td class="project-title">source</td>
+                                        <td class="project-title">${revenue.number!}</td>
+                                        <td class="project-title">${revenue.userid!}</td>                                        
+                                        <td class="project-title">${revenue.price!}</td>
+                                        <td  class="project-title">${revenue.time!}</td>
+                                        <td class="project-title" >${revenue.source!}</td>
+                                        <#if user.type=1>
                                         <td class="project-actions">
-                                            <button  class="btn btn-white btn-sm" onclick="show();"><i class="fa fa-folder"></i> 查看 </button>
-                                            <button class="btn btn-white btn-sm"  onclick="edit();"><i class="fa fa-pencil"></i> 编辑 </button>
+                                            <button  class="btn btn-white btn-sm edit" ><i class="fa fa-folder"></i> 编辑 </button>
+                                            <button class="btn btn-white btn-sm"  onclick="del('${revenue.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
+                                        </#if>
                                     </tr>
+                                     </#list>
                                     </tbody>
                                 </table>
                             </div>
@@ -56,9 +61,38 @@
                 </div>
             </div>
         </div>
-    <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
+      <script src="static/plug/hplus/js/jquery.min63b9.js?v=2.1.4"></script>
     <script src="static/plug/hplus/js/bootstrap.min14ed.js?v=3.3.6"></script>
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<script src="static/plug/jquery-summer/core.js"></script>
+	<script src="static/plug/jquery-summer/ajax.js"></script>
+	<script src="static/plug/jquery-summer/form.js"></script>
+	<script src="static/plug/jquery-summer/encapsulate-1.2.js"></script>
+	<script type="text/javascript" src=" https://code.jquery.com/jquery-3.3.1.js"></script>
+	  <script src="static/plug/layer/layer.min.js"></script>
+        <script>
+	function del(id){
+		$.ajax({
+			type:'POST',
+			url:"revenue/delete.jhtml",
+			data:{id:id},
+			success: function(data){
+				if(!data.error){
+					alert(data.data);
+					location.reload();
+				}else{
+					alert(data.data);
+				}
+			},
+			dataType:"json"
+		});
+		}
+	$(".edit").click(function(){
+		$summerLayer("修改收入信息","revenue.jhtml?p=edit",["500px","400px"]);
+	});
+	$("#add").click(function(){
+		$summerLayer("创建新收入","revenue.jhtml?p=add",["500px","550px"]);
+	});
+    </script>
     </body>
     </html>
 

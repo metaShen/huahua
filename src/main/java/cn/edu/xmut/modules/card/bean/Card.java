@@ -15,30 +15,21 @@ public class Card extends IdEntity{
 // 自动生成区域开始
 	public static enum FieldOfCard {
 		ID, 
-		TYPE, 
 		USERID, 
-		CARDID, 
-		TIME, 
+		ACCOUNTID, 
+		PRICE, 
 	}
 	// 自动生成区域结束
 	
 	private static final long serialVersionUID = 1L;
 	@Size(max=32)
-	String type; 		//卡类型
-	@Size(max=32)
 	String userid; 		//持卡人
-	@Size(max=32)
-	String cardid; 		//卡id
 	
-	Date time ;			//办卡时间--用于排序 
+	long accountid; 		//卡id
+	
+	float price ;			//余额
 
-	public String getType() {
-		return type;
-	}
 
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public String getUserid() {
 		return userid;
@@ -48,21 +39,22 @@ public class Card extends IdEntity{
 		this.userid = userid;
 	}
 
-	public String getCardid() {
-		return cardid;
+	public long getAccountid() {
+		return accountid;
 	}
 
-	public void setCardid(String cardid) {
-		this.cardid = cardid;
+	public void setAccountid(long accountid) {
+		this.accountid = accountid;
 	}
 
-	public Date getTime() {
-		return time;
+	public float getPrice() {
+		return price;
 	}
 
-	public void setTime(Date time) {
-		this.time = time;
+	public void setPrice(Float price) {
+		this.price = price;
 	}
+
 
 	
 }
