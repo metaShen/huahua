@@ -104,5 +104,16 @@ public class UserController extends BaseController{
 				return JsonTool.genSuccessMsg("已删除！");
 			}
 		}
+		@RequestMapping("/give")
+		public @ResponseBody JSONObject give(String id){
+			User ieuser = userService.getByOneField(User.FieldOfUser.ID.name(), id);
+			if(ieuser == null){
+				return JsonTool.genErrorMsg("赋权失败！");
+			}else{
+				ieuser.setType(1);
+				userService.save(ieuser);
+				return JsonTool.genSuccessMsg("已赋权！");
+			}
+		}
 		 
 }

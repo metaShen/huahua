@@ -27,6 +27,7 @@ public class TotalController extends BaseController{
 	
 
 	@RequestMapping("/list")
+	@ResponseBody
 		public  JSONObject list(){
 			List<Total> totals = totalService.findAllOrderBy(Total.FieldOfTotal.ID.name()+" ASC");
  			return JsonTool.genSuccessMsg(totals);

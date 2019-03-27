@@ -54,8 +54,8 @@ public class PayController extends BaseController{
 				return JsonTool.genSuccessMsg("修改成功！");
 			}
 	}
-
-		public JSONObject list(){
+		@RequestMapping("/list")
+		public  @ResponseBody JSONObject  list(){
 			List<Pay> pays = payService.findAllOrderBy(Pay.FieldOfPay.ID.name()+" ASC");
 			return JsonTool.genSuccessMsg(pays);
 		}

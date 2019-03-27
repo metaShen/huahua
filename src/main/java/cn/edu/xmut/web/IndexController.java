@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.edu.xmut.modules.user.service.UserService;
-import cn.edu.xmut.modules.weixin.WeixinService;
 import cn.edu.xmut.utils.Constants;
 import cn.edu.xmut.utils.UtilCtrl;
 
@@ -22,8 +21,6 @@ import cn.edu.xmut.utils.UtilCtrl;
 public class IndexController extends SummerBaseController{
 	@Resource(name = "userServiceImpl")
 	private UserService userService;
-	@Resource(name = "WeixinService")
-	private WeixinService wxService;
     /*
      * 公共登录
      */

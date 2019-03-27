@@ -35,14 +35,15 @@ public class RevenueController extends BaseController{
 			Revenue ierevenue = revenueService.getByOneField(Revenue.FieldOfRevenue.NUMBER.name(), revenue.getNumber());
 			if(ierevenue != null){
 				return JsonTool.genErrorMsg("添加失败！");
-			}else{
+			}else{   
 				revenueService.save(revenue);
 				return JsonTool.genSuccessMsg("添加成功！");
 			}
 		}
 	}
 	
-		public JSONObject list(){
+	@RequestMapping("/list")
+	public @ResponseBody JSONObject list(){
 			List<Revenue> revenues = revenueService.findAllOrderBy(Revenue.FieldOfRevenue.ID.name()+" ASC");
 			return JsonTool.genSuccessMsg(revenues);
 		}
