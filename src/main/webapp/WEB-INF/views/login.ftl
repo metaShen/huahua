@@ -12,7 +12,7 @@
         <div>
         <a class="bigg"> 大号字体</a>
           <a class="small">小号字体</a>
-        <div><h3 >卡务账户管理系统</h3></div>
+        <div><h3 >家庭财务管理系统</h3></div>
             <form class="m-t" role="form" action="#">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="用户名" id="username" >

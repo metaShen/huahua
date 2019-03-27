@@ -44,6 +44,7 @@
                                         <td class="project-title" >${user.sex }</td>
                                         <td class="project-title" >${user.fam }</td>
                                         <td class="project-actions">
+                         <button  class="btn btn-white btn-sm edit" onclick="give('${user.id}')" ><i class="fa fa-folder"></i> 赋权 </button>
                        <button class="btn btn-white btn-sm"  onclick="del('${user.id}');"><i class="fa fa-pencil"></i> 删除 </button>
                                         </td>
                                     </tr>
@@ -82,6 +83,25 @@
 		$.ajax({
 			type:'POST',
 			url:"user/delete.jhtml",
+			data:{id:id},
+			success: function(data){
+				if(!data.error){
+					alert(data.data);
+					location.reload();
+				}else{
+					alert(data.data);
+				}
+			},
+			dataType:"json"
+		});
+		}
+
+    </script>
+        <script>
+	function give(id){
+		$.ajax({
+			type:'POST',
+			url:"user/give.jhtml",
 			data:{id:id},
 			success: function(data){
 				if(!data.error){
